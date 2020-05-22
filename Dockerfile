@@ -29,8 +29,6 @@ ENV CONTAINER_UID=1000
 ENV CONTAINER_GID=1000
 ENV CONTAINER_USERNAME=skandragon
 
-VOLUME $BACKUP_DESTINATION
-
 RUN \
   addgroup -g $CONTAINER_GID -S $CONTAINER_USERNAME \
   && adduser --home ${WORKDIR} --shell /bin/sh --disabled-password --no-create-home --gecos 'Skandragon' -G $CONTAINER_USERNAME --uid $CONTAINER_UID $CONTAINER_USERNAME
@@ -38,6 +36,8 @@ RUN \
 RUN apk update \
   && apk add --no-cache postgresql-client \
   && rm -rf /var/cache/apk/*
+
+RUN mkdir ${BACKUP_DESTINATION} && chown ${CONTAINER_UID}:${CONTAINER_GID} ${BACKUP_DESTINATION}
 
 RUN mkdir ${WORKDIR} && chown ${CONTAINER_UID}:${CONTAINER_GID} ${WORKDIR}
 WORKDIR ${WORKDIR}

@@ -26,29 +26,36 @@ done
 
 # Clean up old files
 expire() {
-  [ -s "$BACKUP_EXPIRE_DAYS"] && {
+  [ -s "$BACKUP_EXPIRE_DAYS" ] && {
     echo "Removing any *.sql.gz files older than ${BACKUP_EXPIRE_DAYS} days."
     find . -type f -mtime +${BACKUP_EXPIRE_DAYS} -name '*.sql.gz' -execdir rm -- '{}' \;
   }
 }
 
 backup() {
+  # clean up old, possibly failed runs
+  rm -f "${BACKUP_DESTINATION}/temp.*"
+
   for database in $DATABASES ; do
     timestamp=`date +"%Y%m%d-%H%M%S"`
+    tmpfile=`mktemp "${BACKUP_DESTINATION}/temp.XXXXXXXXXX"`
     filename="${database}.${timestamp}.sql.gz"
     echo "Backing up ${database} to ${filename}"
-    pg_dump --dbname="${database}" | gzip > "${filename}"
+    pg_dump --dbname="${database}" | gzip > "${tmpfile}"
+    mv "${tmpfile}" "${filename}"
+    wc -c "${filename}"
   done
 }
 
 if [ -z "${BACKUP_FREQUENCY}" ] ; then
   echo "BACKUP_FREQUENCY not set, exiting after a single backup is performed."
-  expire()
-  backup()
+  expire
+  backup
 else
   while true ; do
-    expire()
-    backup()
+    echo
+    expire
+    backup
     echo "Backup run complated, sleeping for ${BACKUP_FREQUENCY} seconds."
     sleep $BACKUP_FREQUENCY
   done
