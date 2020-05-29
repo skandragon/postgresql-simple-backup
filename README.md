@@ -1,5 +1,8 @@
 # postgresql-simple-backup
 
+Docker Hub:  https://hub.docker.com/repository/docker/skandragon/postgresql-simple-backup
+Git:  https://github.com/skandragon/postgresql-simple-backup
+
 Simple backup strategy for PostgreSQL, useful for simple installations or non-critical systems.
 
 `postgresql-simple-backup` is a Docker container which can run
