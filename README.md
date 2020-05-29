@@ -52,8 +52,8 @@ BACKUP_DESTINATION=/backups
 
 ## Schedule
 
-Back up pause.  This is measured from the time the backup starts to the time
-the next one is completed.
+Back up pause.  This specifies the delay between current backup ending to the time
+the next one is started.
 
 ```sh
 BACKUP_FREQUENCY=3600
