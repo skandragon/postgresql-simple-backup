@@ -1,5 +1,4 @@
 FROM alpine:3.12
-MAINTAINER explorer@flame.org
 
 # The host, user, and password to use.  All databases backed up
 # will share this common configuration.
