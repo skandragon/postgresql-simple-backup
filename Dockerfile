@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3
 
 # The host, user, and password to use.  All databases backed up
 # will share this common configuration.
