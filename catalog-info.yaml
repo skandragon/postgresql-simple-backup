@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: postgresql-simple-backup
+  description: Back up a Postgresql database to various places
+  tags:
+    - 'docker'
+    - 'go'
+spec:
+  type: docker-image
+  lifecycle: production
+  owner: guest
