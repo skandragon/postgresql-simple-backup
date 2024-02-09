@@ -9,4 +9,4 @@ metadata:
 spec:
   type: docker-image
   lifecycle: production
-  owner: guest
+  owner: guests
